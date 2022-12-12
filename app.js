@@ -1,6 +1,9 @@
 const express = require('express');
 //Importação do express
 
+require('./config/database');
+//Importando a conexao com o mongoDB
+
 const checkListRouter = require('./src/routes/checklist');
 //Importando a rota
 
