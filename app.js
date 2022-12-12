@@ -25,6 +25,9 @@ app.use(express.json());
 // });
 //Criando primeira rota
 
+app.use(express.static(path.join(__dirname, 'public')));
+//os arquivos estaticos irao ficar na pasta public
+
 app.set('views', path.join(__dirname, 'src/views'));
 //junção do diretorio atual com o diretorio das views
 
