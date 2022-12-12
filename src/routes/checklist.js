@@ -5,9 +5,14 @@ const router = express.Router();
 
 const Checklist = require('../models/checklist');
 
-router.get('/', (req, res) => {
-    console.log('Ola');
-    res.send();
+router.get('/', async (req, res) => {
+    try {
+        let checklist = await Checklist.find({});
+        res.status(200).json(checklist);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
 })
 //Criação da rota get
 
@@ -25,23 +30,36 @@ router.post('/', async (req, res) => {
 })
 //Criação da rota post
 
-router.get('/:id', (req, res) => {
-    console.log(req.params);
-    res.send(`ID: ${req.params.id}`);
+router.get('/:id', async (req, res) => {
+    try {
+        let checklist = await Checklist.findById(req.params.id);
+        res.status(200).json(checklist);
+    }
+    catch (error) {
+        res.status(422).json(error)
+    }
 })
 //Criação de rota get com parametro de id
 
-router.put('/:id', (req, res) => {
-    console.log(req.body);
-    console.log("rota put acionada");
-    res.send(`PUT ID: ${req.params.id}`);
+router.put('/:id', async (req, res) => {
+    let {name} = req.body;
+    try {
+        let checklist = await Checklist.findByIdAndUpdate(req.params.id, {name}, {new: true});
+        // id do que sera atualizado, o que seraw atualizado e o new: true é para na hora de devolver ele devolver o novo objeto, ou seja, o obj com os novos valores
+        res.status(200).json(checklist);
+    } catch (error) {
+        res.status(422).json(error);
+    }
 })
 //Criação de rota put com parametro de id
 
-router.delete('/:id', (req, res) => {
-    console.log(req.body);
-    console.log("rota delete acionada");
-    res.send(`DELETE ID: ${req.params.id}`);
+router.delete('/:id', async (req, res) => {
+    try {
+        let checklist = await Checklist.findByIdAndRemove(req.params.id);
+        res.status(200).json(checklist);
+    } catch (error) {
+        res.status(422).json(error);
+    }
 })
 //Criação de rota delete com parametro de id
 
