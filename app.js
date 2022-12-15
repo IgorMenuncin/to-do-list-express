@@ -19,6 +19,8 @@ const app = express();
 app.use(express.json());
 //Usando middlewares para receber json
 
+app.use(express.urlencoded({extended: true}));
+
 // app.get('/', (req, res) => {
 
 //     res.send('<h1>Minha lista de tarefas :)</h1>');
